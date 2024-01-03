@@ -1,0 +1,4 @@
+2024-01-02 16:36:26,780 - root - ERROR - Failed login attempt for email: admin@gmail.com - Password does not match.
+2024-01-02 16:36:40,455 - root - ERROR - Failed login attempt for email: nayera1@gmail.com - User not found.
+2024-01-02 16:41:39,257 - root - ERROR - Failed login attempt for email: nayera1@gmail.com - User not found.
+2024-01-02 16:53:29,629 - django.utils.autoreload - INFO - E:\Atlanta CRM\MyProject\main\urls.py changed, reloading.
