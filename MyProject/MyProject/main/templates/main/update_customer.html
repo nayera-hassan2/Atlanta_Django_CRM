@@ -1,0 +1,7 @@
+<!-- main/update_customer.html -->
+
+<form method="post" action="">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Update</button>
+</form>

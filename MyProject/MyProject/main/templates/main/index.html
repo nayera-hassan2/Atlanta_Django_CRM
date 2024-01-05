@@ -366,31 +366,31 @@
                                             </a>
                                             
                                             <a href="{% url 'main:employees_records' %}">
-                                                <span class="pcoded-micon"><i class="ti-user"></i></span>
+                                                <span class="pcoded-micon" style="background-color: #00FF00;"><i class="ti-user"></i></span>
                                                 <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Employees</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
 
                                             <a href="{% url 'main:career_records' %}">
-                                                <span class="pcoded-micon"><i class="ti-briefcase"></i></span>
+                                                <span class="pcoded-micon"  style="background-color: #FF5733;"><i class="ti-briefcase"></i></span>
                                                 <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Careers</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
 
                                             <a href="{% url 'main:get_a_quote_records' %}">
-                                                <span class="pcoded-micon"><i class="ti-comment-alt"></i></span>
+                                                <span class="pcoded-micon" style="background-color: #FFD700;"><i class="ti-comment-alt"></i></span>
                                                 <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Get a quote</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
 
                                             <a href="{% url 'main:contact_us_records' %}">
-                                                <span class="pcoded-micon"><i class="ti-mobile"></i></span>
+                                                <span class="pcoded-micon" style="background-color: #00CED1;"><i class="ti-mobile"></i></span>
                                                 <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Contact Us</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
 
                                             <a href="{% url 'main:sign_in' %}">
-                                                <span class="pcoded-micon"><i class="ti-lock"></i></span>
+                                                <span class="pcoded-micon" style="background-color: #9400D3;"><i class="ti-lock"></i></span>
                                                 <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Logout</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
@@ -484,6 +484,7 @@
                                                                 <th>State</th>
                                                                 <th>Zipcode</th>
                                                                 <th>Created At</th>
+                                                                <th>Actions</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
@@ -498,7 +499,39 @@
                                                                     <td>{{ record.state }}</td>
                                                                     <td>{{ record.zipcode }}</td>
                                                                     <td>{{ record.created_at }}</td>
+
+                                                                    <td>
+                                                                        <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#updateModal{{ record.pk }}">Update</a>
+                                                                        <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal{{ record.pk }}">Delete</a>
+                                                                    </td>
                                                                 </tr>
+
+                                                                <!-- Update Modal -->
+                                                                <div class="modal fade" id="updateModal{{ record.pk }}" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
+                                                                    <div class="modal-dialog" role="document">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header">
+                                                                                <h5 class="modal-title" id="updateModalLabel">Update Customer</h5>
+                                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                    <span aria-hidden="true">&times;</span>
+                                                                                </button>
+                                                                            </div>
+                                                                            <div class="modal-body">
+                                                                                {% url 'main:update_customer' pk=record.pk %}
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <!-- Delete Modal -->
+                                                                <div class="modal fade" id="deleteModal{{ record.pk }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                                                    <div class="modal-dialog" role="document">
+                                                                        <div class="modal-content">
+                                                                            <!-- Load the delete form using a view -->
+                                                                            {% url 'main:delete_customer' pk=record.pk %}
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
                                                             {% endfor %}
                                                         </tbody>
                                                     </table>
@@ -550,6 +583,12 @@
                                             {% endif %}
                                             <!-- End of the Employee Records table -->
 
+                                            <div id="imageModal" class="modal"
+                                            {% comment %} style="display: flex; align-items: center; justify-content: center; left: 0; top: 0; width: 100%; height: 100%;" {% endcomment %}
+                                            >
+                                                <span class="close" onclick="closeModal()">&times;</span>
+                                                <img class="modal-content" id="modalImage">
+                                            </div>
 
                                             <!--career_records -->
                                             {% if career_records %}
@@ -577,7 +616,9 @@
                                                                     <td>{{ career.address }}</td>
                                                                     <td>
                                                                         {% if career.file %}
-                                                                            <a href="{{ career.file.url }}" target="_blank">View Image</a>
+                                                                            <a href="#" onclick="openModal('{{ career.file.url }}')">
+                                                                                <img src="{{ career.file.url }}" alt="View Image" style="width:50px;height:50px;">
+                                                                            </a>
                                                                         {% else %}
                                                                             No File
                                                                         {% endif %}
@@ -1042,6 +1083,24 @@ var nav = $('.fixed-button');
          nav.removeClass('active');
      }
  });
+</script>
+
+<!-- js code to display image in popup  -->
+    <!-- function to open image  -->
+    <!-- function to close image  -->
+<script>
+  
+    function openModal(imagePath) {
+        var modal = document.getElementById('imageModal');
+        var modalImage = document.getElementById('modalImage');
+        modal.style.display = 'block';
+        modalImage.src = imagePath;
+    }
+
+    function closeModal() {
+        var modal = document.getElementById('imageModal');
+        modal.style.display = 'none';
+    }
 </script>
 
 </body>

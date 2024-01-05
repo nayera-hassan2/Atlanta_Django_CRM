@@ -3,7 +3,10 @@ from .scripts.sign_in_form import setup_logger, perform_login
 from django.contrib.auth import logout
 from django.contrib import messages
 from .models import Quote, ContactUs, CareerApplication, CustomersRecords, EmployeesRecords
+from .forms import CustomerUpdateForm
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
+from django.conf import settings
 
 
 # Create your views here.
@@ -86,13 +89,13 @@ def contact_us_records(request):
     return render(request, 'main/index.html', context)
 
 
+# Retreiving customer_records from db
 def customer_records(request):
     # Fetching Customer records
     customer_records = CustomersRecords.objects.all()
 
-    #   Passing the records to the context
+    # Passing the records to the context
     context = {'customer_records': customer_records}
-    
     
     # Print records to the console
     # for record in customer_records:
@@ -112,6 +115,24 @@ def customer_records(request):
         
     # Rendering the data in the index.html template
     return render(request, 'main/index.html', context)
+
+
+def update_customer(request, pk):
+    customer = get_object_or_404(CustomersRecords, pk=pk)
+
+    if request.method == 'POST':
+        form = CustomerUpdateForm(request.POST, instance=customer)
+        if form.is_valid():
+            form.save()
+            return redirect('main:customer_records')
+    else:
+        form = CustomerUpdateForm(instance=customer)
+
+    return render(request, 'main/update_customer.html', {'form': form})
+
+
+def delete_customer(request, pk):
+    pass
 
 
 def employees_records(request):
@@ -167,7 +188,7 @@ def career_records(request):
     for record in career_records:
         print(f"File Path: {record.file.path}")
 
-    # Passing the records to the context
-    context = {'career_records': career_records}
+    # Passing the records to the context along with the base media URL
+    context = {'career_records': career_records, 'media_url': settings.MEDIA_URL}
 
     return render(request, 'main/index.html', context)
