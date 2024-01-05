@@ -1,4 +1,5 @@
 {% load static %}
+{% load custom_tags %}
 {% comment %} {% load messages %} {% endcomment %}
 
 <!DOCTYPE html>
@@ -358,31 +359,42 @@
                                     </a> 
                                     <ul class="pcoded-submenu"> {% endcomment %}
                                         <li class=" ">
-                                            <a href="#">
-                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                            <a href="{% url 'main:customer_records' %}" >
+                                                <span class="pcoded-micon"><i class="ti-user"></i></span>
                                                 <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Customers</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
-
-                                            <a href="#">
-                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                            
+                                            <a href="{% url 'main:employees_records' %}">
+                                                <span class="pcoded-micon" style="background-color: #00FF00;"><i class="ti-user"></i></span>
                                                 <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Employees</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
 
+                                            <a href="{% url 'main:career_records' %}">
+                                                <span class="pcoded-micon"  style="background-color: #FF5733;"><i class="ti-briefcase"></i></span>
+                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Careers</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+
+                                            <a href="{% url 'main:get_a_quote_records' %}">
+                                                <span class="pcoded-micon" style="background-color: #FFD700;"><i class="ti-comment-alt"></i></span>
+                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Get a quote</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+
+                                            <a href="{% url 'main:contact_us_records' %}">
+                                                <span class="pcoded-micon" style="background-color: #00CED1;"><i class="ti-mobile"></i></span>
+                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Contact Us</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+
                                             <a href="{% url 'main:sign_in' %}">
-                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                <span class="pcoded-micon" style="background-color: #9400D3;"><i class="ti-lock"></i></span>
                                                 <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Logout</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
-                                        {% comment %} <li class=" ">
-                                            <a href="auth-sign-up.html">
-                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Register</span>
-                                                <span class="pcoded-mcaret"></span>
-                                            </a>
-                                        </li> {% endcomment %}
                                         
                                     </ul>
                                 </li>
@@ -455,6 +467,228 @@
                                                 </div>
                                             {% endif %}
                                             <!-- end Display Django messages -->
+
+                                            <!--CustomersRecords -->
+                                            {% if customer_records %}
+                                                <h4>Customer Records</h4>
+                                                <div class="table-responsive">
+                                                    <table class="table table-striped table-bordered table-hover">
+                                                        <thead class="table-dark">
+                                                            <tr>
+                                                                <th>FirstName</th>
+                                                                <th>LastName</th>
+                                                                <th>Email</th>
+                                                                <th>Phone Number</th>
+                                                                <th>Address</th>
+                                                                <th>City</th>
+                                                                <th>State</th>
+                                                                <th>Zipcode</th>
+                                                                <th>Created At</th>
+                                                                <th>Actions</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            {% for record in customer_records %}
+                                                                <tr>
+                                                                    <td>{{ record.first_name }}</td>
+                                                                    <td>{{ record.last_name }}</td>
+                                                                    <td>{{ record.email }}</td>
+                                                                    <td>{{ record.phone_number }}</td>
+                                                                    <td>{{ record.address }}</td>
+                                                                    <td>{{ record.city }}</td>
+                                                                    <td>{{ record.state }}</td>
+                                                                    <td>{{ record.zipcode }}</td>
+                                                                    <td>{{ record.created_at }}</td>
+
+                                                                    <td>
+                                                                        <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#updateModal{{ record.pk }}">Update</a>
+                                                                        <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal{{ record.pk }}">Delete</a>
+                                                                    </td>
+                                                                </tr>
+
+                                                                <!-- Update Modal -->
+                                                                <div class="modal fade" id="updateModal{{ record.pk }}" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
+                                                                    <div class="modal-dialog" role="document">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header">
+                                                                                <h5 class="modal-title" id="updateModalLabel">Update Customer</h5>
+                                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                    <span aria-hidden="true">&times;</span>
+                                                                                </button>
+                                                                            </div>
+                                                                            <div class="modal-body">
+                                                                                {% url 'main:update_customer' pk=record.pk %}
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <!-- Delete Modal -->
+                                                                <div class="modal fade" id="deleteModal{{ record.pk }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                                                    <div class="modal-dialog" role="document">
+                                                                        <div class="modal-content">
+                                                                            <!-- Load the delete form using a view -->
+                                                                            {% url 'main:delete_customer' pk=record.pk %}
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            {% endfor %}
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            {% endif %}
+                                            <!--end of the CustomersRecords table -->
+
+                                            <!-- Employee Records -->
+                                            {% if employees_records %}
+                                                <h4>Employee Records</h4>
+                                                <div class="table-responsive">
+                                                    <table class="table table-striped table-bordered table-hover">
+                                                        <thead class="table-dark">
+                                                            <tr>
+                                                                <th>FirstName</th>
+                                                                <th>LastName</th>
+                                                                <th>Email</th>
+                                                                <th>Phone Number</th>
+                                                                <th>Address</th>
+                                                                <th>Employee ID</th>
+                                                                <th>Job Title</th>
+                                                                <th>Department</th>
+                                                                <th>Salary</th>
+                                                                <th>Start Date</th>
+                                                                <th>End Date</th>
+                                                                <th>Created At</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            {% for record in employees_records %}
+                                                                <tr>
+                                                                    <td>{{ record.first_name }}</td>
+                                                                    <td>{{ record.last_name }}</td>
+                                                                    <td>{{ record.email }}</td>
+                                                                    <td>{{ record.phone_number }}</td>
+                                                                    <td>{{ record.address }}</td>
+                                                                    <td>{{ record.employee_id }}</td>
+                                                                    <td>{{ record.job_title }}</td>
+                                                                    <td>{{ record.department }}</td>
+                                                                    <td>{{ record.salary }}</td>
+                                                                    <td>{{ record.start_date }}</td>
+                                                                    <td>{{ record.end_date }}</td>
+                                                                    <td>{{ record.created_at }}</td>
+                                                                </tr>
+                                                            {% endfor %}
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            {% endif %}
+                                            <!-- End of the Employee Records table -->
+
+                                            <div id="imageModal" class="modal"
+                                            {% comment %} style="display: flex; align-items: center; justify-content: center; left: 0; top: 0; width: 100%; height: 100%;" {% endcomment %}
+                                            >
+                                                <span class="close" onclick="closeModal()">&times;</span>
+                                                <img class="modal-content" id="modalImage">
+                                            </div>
+
+                                            <!--career_records -->
+                                            {% if career_records %}
+                                                <h4>Career Records</h4>
+                                                <div class="table-responsive">
+                                                    <table class="table table-striped table-bordered table-hover">
+                                                        <thead class="table-dark">
+                                                            <tr>
+                                                                <th>Username</th>
+                                                                <th>Email</th>
+                                                                <th>Phone Number</th>
+                                                                <th>Date of Birth</th>
+                                                                <th>Address</th>
+                                                                <th>File</th>
+                                                                <th>Message</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            {% for career in career_records %}
+                                                                <tr>
+                                                                    <td>{{ career.username }}</td>
+                                                                    <td>{{ career.email }}</td>
+                                                                    <td>{{ career.tel }}</td>
+                                                                    <td>{{ career.text }}</td>
+                                                                    <td>{{ career.address }}</td>
+                                                                    <td>
+                                                                        {% if career.file %}
+                                                                            <a href="#" onclick="openModal('{{ career.file.url }}')">
+                                                                                <img src="{{ career.file.url }}" alt="View Image" style="width:50px;height:50px;">
+                                                                            </a>
+                                                                        {% else %}
+                                                                            No File
+                                                                        {% endif %}
+                                                                    </td>
+                                                                    <td>{{ career.message }}</td>
+                                                                </tr>
+                                                            {% endfor %}
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            {% endif %}
+                                            <!--career_records -->
+
+                                            <!--get_a_quote_records us Records -->
+                                            {% if get_a_quote_records %}
+                                                <h4>Quote Records</h4>
+                                                <div class="table-responsive">
+                                                    <table class="table table-striped table-bordered table-hover">
+                                                        <thead class="table-dark">
+                                                            <tr>
+                                                                <th>Name</th>
+                                                                <th>Email</th>
+                                                                <th>Phone Number</th>
+                                                                <th>Security Type</th>
+                                                                <th>Message</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            {% for record in get_a_quote_records %}
+                                                                <tr>
+                                                                    <td>{{ record.name }}</td>
+                                                                    <td>{{ record.email }}</td>
+                                                                    <td>{{ record.phone_number }}</td>
+                                                                    <td>{{ record.security_type }}</td>
+                                                                    <td>{{ record.message }}</td>
+                                                                </tr>
+                                                            {% endfor %}
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+
+                                            {% endif %}
+                                            <!--end of the contact us Records table -->
+
+                                            <!--contact us Records -->
+                                            {% if contact_us_records %}
+                                                <h4>Contact Us Records</h4>
+                                                <div class="table-responsive">
+                                                    <table class="table table-striped table-bordered table-hover">
+                                                        <thead class="table-dark">
+                                                            <tr>
+                                                                <th>Username</th>
+                                                                <th>Email</th>
+                                                                <th>Message</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            {% for record in contact_us_records %}
+                                                                <tr>
+                                                                    <td>{{ record.username }}</td>
+                                                                    <td>{{ record.email }}</td>
+                                                                    <td>{{ record.message }}</td>
+                                                                </tr>
+                                                            {% endfor %}
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                        
+                                            {% endif %}
+                                            <!--end of the contact us Records table -->
 
                                             <!-- card1 start -->
                                             {% comment %} <div class="col-md-6 col-xl-3">
@@ -816,50 +1050,7 @@
             </div>
         </div>
 
-        <!-- Warning Section Starts -->
-        <!-- Older IE warning message -->
-    <!--[if lt IE 9]>
-<div class="ie-warning">
-    <h1>Warning!!</h1>
-    <p>You are using an outdated version of Internet Explorer, please upgrade <br/>to any of the following web browsers to access this website.</p>
-    <div class="iew-container">
-        <ul class="iew-download">
-            <li>
-                <a href="http://www.google.com/chrome/">
-                    <img src="assets/images/browser/chrome.png" alt="Chrome">
-                    <div>Chrome</div>
-                </a>
-            </li>
-            <li>
-                <a href="https://www.mozilla.org/en-US/firefox/new/">
-                    <img src="assets/images/browser/firefox.png" alt="Firefox">
-                    <div>Firefox</div>
-                </a>
-            </li>
-            <li>
-                <a href="http://www.opera.com">
-                    <img src="assets/images/browser/opera.png" alt="Opera">
-                    <div>Opera</div>
-                </a>
-            </li>
-            <li>
-                <a href="https://www.apple.com/safari/">
-                    <img src="assets/images/browser/safari.png" alt="Safari">
-                    <div>Safari</div>
-                </a>
-            </li>
-            <li>
-                <a href="http://windows.microsoft.com/en-us/internet-explorer/download-ie">
-                    <img src="assets/images/browser/ie.png" alt="">
-                    <div>IE (9 & above)</div>
-                </a>
-            </li>
-        </ul>
-    </div>
-    <p>Sorry for the inconvenience!</p>
-</div>
-<![endif]-->
-<!-- Warning Section Ends -->
+    
 <!-- Required Jquery -->
 <script type="text/javascript" src="{% static 'assets/js/jquery/jquery.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'assets/js/jquery-ui/jquery-ui.min.js' %}"></script>
@@ -893,6 +1084,25 @@ var nav = $('.fixed-button');
      }
  });
 </script>
+
+<!-- js code to display image in popup  -->
+    <!-- function to open image  -->
+    <!-- function to close image  -->
+<script>
+  
+    function openModal(imagePath) {
+        var modal = document.getElementById('imageModal');
+        var modalImage = document.getElementById('modalImage');
+        modal.style.display = 'block';
+        modalImage.src = imagePath;
+    }
+
+    function closeModal() {
+        var modal = document.getElementById('imageModal');
+        modal.style.display = 'none';
+    }
+</script>
+
 </body>
 
 </html>

@@ -2,8 +2,11 @@ from django.shortcuts import render, redirect
 from .scripts.sign_in_form import setup_logger, perform_login
 from django.contrib.auth import logout
 from django.contrib import messages
-from .models import Quote
-from .models import ContactUs
+from .models import Quote, ContactUs, CareerApplication, CustomersRecords, EmployeesRecords
+from .forms import CustomerUpdateForm
+from django.shortcuts import render, get_object_or_404
+from django.http import HttpResponse
+from django.conf import settings
 
 
 # Create your views here.
@@ -47,6 +50,16 @@ def get_a_quote(request):
     return render(request, 'main/get-a-quote.html')
 
 
+def get_a_quote_records(request):
+    # Fetching Quote records
+    get_a_quote_records = Quote.objects.all()
+
+    # Passing the records to the context
+    context = {'get_a_quote_records': get_a_quote_records}
+
+    return render(request, 'main/index.html', context)
+
+
 def contact_us(request):
     if request.method == 'POST':
         # Get form data from the POST request
@@ -64,3 +77,118 @@ def contact_us(request):
         return redirect('main:contact_us')
 
     return render(request, 'main/contact-us.html')
+
+
+def contact_us_records(request):
+    # Fetching ContactUs records
+    contact_us_records = ContactUs.objects.all()
+
+    # Passing the records to the context
+    context = {'contact_us_records': contact_us_records}
+
+    return render(request, 'main/index.html', context)
+
+
+# Retreiving customer_records from db
+def customer_records(request):
+    # Fetching Customer records
+    customer_records = CustomersRecords.objects.all()
+
+    # Passing the records to the context
+    context = {'customer_records': customer_records}
+    
+    # Print records to the console
+    # for record in customer_records:
+    #     print(f"First Name: {record.first_name}")
+    #     print(f"Last Name: {record.last_name}")
+    #     print(f"Email: {record.email}")
+    #     print(f"Phone Number: {record.phone_number}")
+    #     print(f"Address: {record.address}")
+    #     print(f"City: {record.city}")
+    #     print(f"State: {record.state}")
+    #     print(f"Zipcode: {record.zipcode}")
+    #     print(f"Created At: {record.created_at}")
+    #     print("-" * 30) 
+
+    # Optionally, you can return a response to the browser
+    # return HttpResponse("Customer records printed in the console.")
+        
+    # Rendering the data in the index.html template
+    return render(request, 'main/index.html', context)
+
+
+def update_customer(request, pk):
+    customer = get_object_or_404(CustomersRecords, pk=pk)
+
+    if request.method == 'POST':
+        form = CustomerUpdateForm(request.POST, instance=customer)
+        if form.is_valid():
+            form.save()
+            return redirect('main:customer_records')
+    else:
+        form = CustomerUpdateForm(instance=customer)
+
+    return render(request, 'main/update_customer.html', {'form': form})
+
+
+def delete_customer(request, pk):
+    pass
+
+
+def employees_records(request):
+    # Fetching Employee records
+    employees_records = EmployeesRecords.objects.all()
+
+    # Print the fetched records to the console
+    for record in employees_records:
+        print(f"Employee: {record.first_name} {record.last_name}")
+
+    # Passing the records to the context
+    context = {'employees_records': employees_records}
+
+    return render(request, 'main/index.html', context)
+
+
+def career(request):
+    if request.method == 'POST':
+        # Get form data from the POST request
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+        tel = request.POST.get('tel')
+        text = request.POST.get('text')  # Assuming this should be a DateField
+        address = request.POST.get('address')
+        file = request.FILES.get('file') 
+        message = request.POST.get('message')
+
+        # Create a new CareerApplication object and save it to the database
+        career_entry = CareerApplication(
+            username=username,
+            email=email,
+            tel=tel,
+            text=text,
+            address=address,
+            file=file,
+            message=message
+        )
+        career_entry.save()
+
+        messages.success(request, 'Career form submitted successfully!')
+
+        # Redirect to the same page to avoid form resubmission on refresh
+        return redirect('main:career')
+
+    return render(request, 'main/career.html')
+
+
+def career_records(request):
+    # Fetching CareerApplication records
+    career_records = CareerApplication.objects.all()
+
+    # Print the absolute paths to debug
+    for record in career_records:
+        print(f"File Path: {record.file.path}")
+
+    # Passing the records to the context along with the base media URL
+    context = {'career_records': career_records, 'media_url': settings.MEDIA_URL}
+
+    return render(request, 'main/index.html', context)
