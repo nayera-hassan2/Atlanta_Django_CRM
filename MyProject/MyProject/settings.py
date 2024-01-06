@@ -1,4 +1,5 @@
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -43,7 +44,7 @@ ROOT_URLCONF = 'MyProject.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'main' / 'templates'],  # Adding this line to show popup update and delete 
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -78,8 +79,18 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
 ]
 
+# setting custom path for saving image in this below directory
+# MEDIA_ROOT = 'E:/Atlanta CRM/MyProject/'
+
+# creates path in media folder just need to add file name at the place of media it will save that media in that file
+MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_URL = '/media/'
+
+STATIC_ROOT = BASE_DIR / 'static'
+
+
 # # settings.py
-# AUTH_USER_MODEL = 'your_app.YourCustomUserModel'
+# AUTH_USER_MODEL = 'main.YourCustomUserModel'
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
