@@ -1,0 +1,5 @@
+2024-01-08 17:43:28,935 - root - ERROR - Invalid email or password for login attempt for email: admin@gmail.com
+2024-01-08 17:43:28,976 - django.security.SuspiciousSession - WARNING - Session data corrupted
+2024-01-08 17:43:31,814 - django.security.SuspiciousSession - WARNING - Session data corrupted
+2024-01-08 17:43:42,408 - root - ERROR - Invalid email or password for login attempt for email: 
+2024-01-08 17:43:46,548 - root - ERROR - Invalid email or password for login attempt for email: admin@gmail.com

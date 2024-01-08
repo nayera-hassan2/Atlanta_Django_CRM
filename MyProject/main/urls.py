@@ -5,6 +5,13 @@ from . import views
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.staticfiles.views import serve
+from .api_views import (
+    QuoteListAPIView,
+    ContactUsListAPIView,
+    CustomersRecordsListAPIView,
+    EmployeesRecordsListAPIView,
+    CareerApplicationListAPIView,
+)
 
 
 app_name = 'main'
@@ -24,6 +31,12 @@ urlpatterns = [
     
     path('employees_records/', views.employees_records, name='employees_records'),
  
+  # API endpoints
+    path('api/quote/', QuoteListAPIView.as_view(), name='quote-list-api'),
+    path('api/contact_us/', ContactUsListAPIView.as_view(), name='contact-us-list-api'),
+    path('api/customers_records/', CustomersRecordsListAPIView.as_view(), name='customers-records-list-api'),
+    path('api/employees_records/', EmployeesRecordsListAPIView.as_view(), name='employees-records-list-api'),
+    path('api/career_application/', CareerApplicationListAPIView.as_view(), name='career-application-list-api'),
 ]
 
 # path for veiwing image

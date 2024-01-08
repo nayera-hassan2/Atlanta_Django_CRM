@@ -67,13 +67,13 @@ def contact_us(request):
         email = request.POST.get('email')
         message = request.POST.get('message')
 
-        # Create a new ContactUs object and save it to the database
+        # Creating a new ContactUs object and save it to the database
         contact_entry = ContactUs(username=username, email=email, message=message)
         contact_entry.save()
 
         messages.success(request, 'Contact form submitted successfully!')
 
-        # Redirect to the same page to avoid form resubmission on refresh
+        # Redirecting to the same page to avoid form resubmission on refresh
         return redirect('main:contact_us')
 
     return render(request, 'main/contact-us.html')
@@ -160,7 +160,7 @@ def career(request):
         file = request.FILES.get('file') 
         message = request.POST.get('message')
 
-        # Create a new CareerApplication object and save it to the database
+        # Creating a new CareerApplication object and save it to the database
         career_entry = CareerApplication(
             username=username,
             email=email,
@@ -174,7 +174,7 @@ def career(request):
 
         messages.success(request, 'Career form submitted successfully!')
 
-        # Redirect to the same page to avoid form resubmission on refresh
+        # Redirecting to the same page to avoid form resubmission on refresh
         return redirect('main:career')
 
     return render(request, 'main/career.html')

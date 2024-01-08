@@ -1,5 +1,7 @@
 from pathlib import Path
 import os
+from django.core.management.utils import get_random_secret_key
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -9,13 +11,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-&7d3h#k7x2vr(h(yo(b6$c(!wqpf-*-p33chunf3+p2pgtvy8w'
+# SECRET_KEY = 'django-insecure-&7d3h#k7x2vr(h(yo(b6$c(!wqpf-*-p33chunf3+p2pgtvy8w'
+
+SECRET_KEY = get_random_secret_key()
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['atlanta-d-crm.onrender.com', '127.0.0.1']
-
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -28,6 +31,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'main.apps.MainConfig',    # including the app for creating a view for rendering the index page.
+    'rest_framework',   # including this to create API links
 ]
 
 MIDDLEWARE = [
@@ -72,6 +76,9 @@ DATABASES = {
         'PASSWORD': '',
         'HOST': 'localhost',
         'PORT': '3306',
+        'OPTIONS': {
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+        },
     }
 }
 
@@ -136,3 +143,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
+
+
