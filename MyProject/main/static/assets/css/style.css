@@ -4077,7 +4077,7 @@ table tbody .border-bottom-info td {
       margin-bottom: 0; }
     .header-navbar .navbar-wrapper .navbar-logo .mobile-menu {
       position: absolute;
-      right: 22px;
+      /* right: 22px; */
       border: 1px solid #fff;
       border-radius: 50%;
       padding: 5px 9px;
@@ -14335,5 +14335,9 @@ table.footable-paging-center > tfoot > tr.footable-paging > td {
     background-color: #303548; }
   .pcoded[layout-type="dark"] .pcoded-main-container {
     background-color: #444c67; }
+
+.pl-30{
+  padding-left: 30px;
+}    
 
 /*# sourceMappingURL=style.css.map */
