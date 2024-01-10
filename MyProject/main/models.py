@@ -66,9 +66,9 @@ class CareerApplication(models.Model):
     username = models.CharField(max_length=255)
     email = models.EmailField()
     tel = models.CharField(max_length=15)
-    text = models.DateField()  # Assuming this should be a DateField
+    text = models.DateField(null=True)  # Make date field nullable
     address = models.TextField()
-    file = models.FileField(upload_to='career_applications/')
+    file = models.FileField(upload_to='career_applications/', null=True)
     message = models.TextField()
 
     def __str__(self):

@@ -7,6 +7,7 @@ from .forms import CustomerUpdateForm
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from django.conf import settings
+import os
 
 
 # Create your views here.
@@ -186,7 +187,10 @@ def career_records(request):
 
     # Print the absolute paths to debug
     for record in career_records:
-        print(f"File Path: {record.file.path}")
+        if record.file:  # Check if the file exists
+            print(f"File Path: {record.file.path}")
+        else:
+            print("No file associated with this record.")
 
     # Passing the records to the context along with the base media URL
     context = {'career_records': career_records, 'media_url': settings.MEDIA_URL}

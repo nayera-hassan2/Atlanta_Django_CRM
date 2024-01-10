@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from .models import Quote, ContactUs, CustomersRecords, EmployeesRecords, CareerApplication
 from .serializers import QuoteSerializer, ContactUsSerializer, CustomersRecordsSerializer, EmployeesRecordsSerializer, CareerApplicationSerializer
 
+
 class QuoteListAPIView(generics.ListCreateAPIView):
     queryset = Quote.objects.all()
     serializer_class = QuoteSerializer
@@ -60,6 +61,7 @@ class EmployeesRecordsListAPIView(generics.ListCreateAPIView):
         response = super().create(request, *args, **kwargs)
         response.data = {'message': 'Employee entry created successfully.', 'data': response.data}
         return response
+
 
 class CareerApplicationListAPIView(generics.ListCreateAPIView):
     queryset = CareerApplication.objects.all()

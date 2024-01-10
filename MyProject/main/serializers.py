@@ -26,3 +26,7 @@ class CareerApplicationSerializer(serializers.ModelSerializer):
     class Meta:
         model = CareerApplication
         fields = '__all__'
+        extra_kwargs = {
+            'text': {'required': False},
+            'file': {'required': False},
+        }
