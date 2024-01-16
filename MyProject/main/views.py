@@ -1,13 +1,12 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .scripts.sign_in_form import setup_logger, perform_login
 from django.contrib.auth import logout
 from django.contrib import messages
 from .models import Quote, ContactUs, CareerApplication, CustomersRecords, EmployeesRecords
 from .forms import CustomerUpdateForm
-from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from django.conf import settings
-import os
+from django.urls import reverse
 
 
 # Create your views here.
@@ -118,18 +117,19 @@ def customer_records(request):
     return render(request, 'main/index.html', context)
 
 
-def update_customer(request, pk):
-    customer = get_object_or_404(CustomersRecords, pk=pk)
+def update_customer_record(request, pk):
+    customer_record = get_object_or_404(CustomersRecords, pk=pk)
 
     if request.method == 'POST':
-        form = CustomerUpdateForm(request.POST, instance=customer)
+        form = CustomerUpdateForm(request.POST, instance=customer_record)
         if form.is_valid():
             form.save()
-            return redirect('main:customer_records')
+            return redirect('customer_records')
     else:
-        form = CustomerUpdateForm(instance=customer)
+        form = CustomerUpdateForm(instance=customer_record)
 
-    return render(request, 'main/update_customer.html', {'form': form})
+    context = {'form': form}
+    return render(request, 'main/update_customer_record.html', context)
 
 
 def delete_customer(request, pk):

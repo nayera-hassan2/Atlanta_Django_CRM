@@ -26,9 +26,8 @@ urlpatterns = [
     path('career/', views.career, name='career'),
     path('career_records/', views.career_records, name='career_records'),
     path('customer_records/', views.customer_records, name='customer_records'),
-    path('update_customer/<int:pk>/', views.update_customer, name='update_customer'),
-    path('delete_customer/<int:pk>/', views.delete_customer, name='delete_customer'),
-    
+    path('update_customer/<int:pk>/', views.update_customer_record, name='update_customer_record'),
+
     path('employees_records/', views.employees_records, name='employees_records'),
  
   # API endpoints
