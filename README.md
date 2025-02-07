@@ -1,10 +1,10 @@
-Django CRM Project
+# Django CRM Project
 
-Overview
+# Overview
 
 This is a Customer Relationship Management (CRM) system built with Django. It allows users to manage customer records efficiently, including adding, updating, and deleting customer details. The project uses Django's built-in authentication system for secure access.
 
-Features
+# Features
 
 1. User authentication (Login/Logout).
 
@@ -18,7 +18,7 @@ Features
 
 6. Integrated database for storing customer data.
 
-Installation
+# Installation
 
 Follow these steps to set up the project:
 
@@ -53,7 +53,7 @@ python manage.py createsuperuser
 
 python manage.py runserver
 
-Usage
+# Usage
 
 1. Log in to the admin panel using the superuser credentials.
 
@@ -61,21 +61,21 @@ Usage
 
 3. Use the search functionality to find specific customer details.
 
-Technologies Used
+# Technologies Used
 
-# Python
+1. Python
 
-# Django
+2. Django
 
-# MySQL
+3. MySQL
 
-# HTML, CSS, Javascript, Bootstrap
+4. HTML, CSS, Javascript, Bootstrap
 
-License
+# License
 
 This project is open-source. Feel free to modify and enhance it as needed!
 
-Author
+# Author
 
 Developed by Nayera Hassan.
 
