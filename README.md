@@ -1,6 +1,6 @@
 # Django CRM Project
 
-$ Overview
+Overview
 
 This is a Customer Relationship Management (CRM) system built with Django. It allows users to manage customer records efficiently, including adding, updating, and deleting customer details. The project uses Django's built-in authentication system for secure access.
 
