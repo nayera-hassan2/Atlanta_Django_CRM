@@ -6,17 +6,17 @@ This is a Customer Relationship Management (CRM) system built with Django. It al
 
 Features
 
-User authentication (Login/Logout).
+1. User authentication (Login/Logout).
 
-View, add, update, and delete customer records.
+2. View, add, update, and delete customer records.
 
-Search functionality for customer records.
+3. Search functionality for customer records.
 
-Modal-based customer record updates.
+4. Modal-based customer record updates.
 
-Mobile-friendly and responsive design.
+5. Mobile-friendly and responsive design.
 
-Integrated database for storing customer data.
+6. Integrated database for storing customer data.
 
 Installation
 
@@ -63,13 +63,13 @@ Usage
 
 Technologies Used
 
-> Python
+# Python
 
-> Django
+# Django
 
-> MySQL
+# MySQL
 
-> HTML, CSS, Javascript, Bootstrap
+# HTML, CSS, Javascript, Bootstrap
 
 License
 
