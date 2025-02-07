@@ -22,54 +22,54 @@ Installation
 
 Follow these steps to set up the project:
 
-Ensure you have Python 3.8+ installed.
+1. Ensure you have Python 3.8+ installed.
 
-Clone the repository:
+2. Clone the repository:
 
 git clone https://github.com/nayera-hassan2/Atlanta_Django_CRM.git
 
-Navigate to the project directory:
+3. Navigate to the project directory:
 
 cd Atlanta_Django_CRM
 
-Create a virtual environment and activate it:
+4. Create a virtual environment and activate it:
 
 python -m venv venv
 source venv/bin/activate  # On Windows use `venv\Scripts\activate`
 
-Install the required dependencies:
+5. Install the required dependencies:
 
 pip install -r requirements.txt
 
-Apply database migrations:
+6. Apply database migrations:
 
 python manage.py migrate
 
-Create a superuser:
+7. Create a superuser:
 
 python manage.py createsuperuser
 
-Run the application:
+8. Run the application:
 
 python manage.py runserver
 
 Usage
 
-Log in to the admin panel using the superuser credentials.
+1. Log in to the admin panel using the superuser credentials.
 
-Add, update, and manage customer records through the dashboard.
+2. Add, update, and manage customer records through the dashboard.
 
-Use the search functionality to find specific customer details.
+3. Use the search functionality to find specific customer details.
 
 Technologies Used
 
-Python
+> Python
 
-Django
+> Django
 
-MySQL
+> MySQL
 
-HTML, CSS, Javascript, Bootstrap
+> HTML, CSS, Javascript, Bootstrap
 
 License
 
