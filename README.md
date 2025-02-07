@@ -53,6 +53,10 @@ python manage.py createsuperuser
 
 python manage.py runserver
 
+9. The application will run locally at:
+
+http://127.0.0.1:8000/
+
 # Usage
 
 1. Log in to the admin panel using the superuser credentials.
