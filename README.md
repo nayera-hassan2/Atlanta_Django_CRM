@@ -6,41 +6,38 @@ This is a Customer Relationship Management (CRM) system built with Django. It al
 
 Features
 
-User authentication (Login/Logout)
+User authentication (Login/Logout).
 
-View, add, update, and delete customer records
+View, add, update, and delete customer records.
 
-Search functionality for customer records
+Search functionality for customer records.
 
-Modal-based customer record updates
+Modal-based customer record updates.
 
-Mobile-friendly and responsive design
+Mobile-friendly and responsive design.
 
-Installation & Setup
+Integrated database for storing customer data.
 
-Prerequisites
+Installation
 
-Ensure you have the following installed:
+Follow these steps to set up the project:
 
-Python (>=3.8)
-
-Django (>=4.0)
-
-Virtualenv (optional but recommended)
-
-Steps to Install
+Ensure you have Python 3.8+ installed.
 
 Clone the repository:
 
 git clone https://github.com/nayera-hassan2/Atlanta_Django_CRM.git
+
+Navigate to the project directory:
+
 cd Atlanta_Django_CRM
 
-Create and activate a virtual environment:
+Create a virtual environment and activate it:
 
 python -m venv venv
-source venv/bin/activate  # On Windows use: venv\Scripts\activate
+source venv/bin/activate  # On Windows use `venv\Scripts\activate`
 
-Install dependencies:
+Install the required dependencies:
 
 pip install -r requirements.txt
 
@@ -52,43 +49,27 @@ Create a superuser:
 
 python manage.py createsuperuser
 
-Follow the prompts to set up an admin user.
-
-Run the development server:
+Run the application:
 
 python manage.py runserver
 
-The project will be accessible at http://127.0.0.1:8000/.
+Usage
 
-Usage Instructions
+Log in to the admin panel using the superuser credentials.
 
-Log in using the superuser credentials created earlier.
+Add, update, and manage customer records through the dashboard.
 
-Navigate through the dashboard to manage customer records.
+Use the search functionality to find specific customer details.
 
-Use the modal forms to update customer details easily.
+Technologies Used
 
-Delete or add new customer records as needed.
+Python
 
-File Structure
+Django
 
-Atlanta_Django_CRM/
-│-- main/                  # Main Django app
-│   │-- templates/main/    # HTML templates
-│   │-- views.py           # Application views
-│   │-- models.py          # Database models
-│   │-- urls.py            # URL routing
-│-- static/                # Static files (CSS, JS)
-│-- manage.py              # Django management script
-│-- requirements.txt       # Required Python packages
-│-- db.sqlite3             # SQLite database (auto-generated)
+MySQL
 
-Common Issues & Troubleshooting
-
-1. NoReverseMatch: Reverse for 'index.html' not found
-
-Solution: Ensure that index.html is correctly referenced as {% url 'main:index' %} in templates instead of {% url 'index.html' %}.
-
+HTML, CSS, Javascript, Bootstrap
 
 License
 
